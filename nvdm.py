@@ -214,7 +214,10 @@ def main(argv=None):
                 learning_rate=FLAGS.learning_rate, 
                 batch_size=FLAGS.batch_size,
                 non_linearity=non_linearity)
-    sess = tf.Session()
+    config = tf.ConfigProto(intra_op_parallelism_threads=4,
+                            inter_op_parallelism_threads=4)
+    sess = tf.Session(config=config)
+    #sess = tf.Session()
     init = tf.initialize_all_variables()
     sess.run(init)
 
